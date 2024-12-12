@@ -1,11 +1,12 @@
-const express = require('express');
-const app = express();
+import express from "express"
 import fetch from "node-fetch";
-const cors = require('cors');
+import cors from "cors"
 
+const app = express();
 app.use(cors({
   origin: '*'
 }));
+app.use(express.json());
 
 const invalidUsername = [];
 const validData = [];
@@ -36,6 +37,7 @@ const validateData = async (data) => {
   return {validData, invalidUsername}
 };
 
+app.listen(3001, () => console.log("server"))
 app.get('/', (req,res) => {
   res.send("healthy")
 })
@@ -51,5 +53,5 @@ app.post('/validate', async(req, res) => {
  }
 });
 
-module.exports = app;
+export {app}
 
