@@ -39,7 +39,7 @@ const validateData = async (data) => {
 
 app.listen(3001, () => console.log("server"))
 app.get('/', (req,res) => {
-  res.send("healthy")
+  res.status(200).send("healthy")
 })
 
 app.post('/validate', async(req, res) => {
