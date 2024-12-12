@@ -36,8 +36,11 @@ const validateData = async (data) => {
   return {validData, invalidUsername}
 };
 
+app.get('/', (req,res) => {
+  res.send("healthy")
+})
 
-app.post('/', async(req, res) => {
+app.post('/validate', async(req, res) => {
  try {
    const data = req.body.data;
    const {validData, invalidUsername} = await validateData(data)
