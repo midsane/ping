@@ -37,7 +37,6 @@ const validateData = async (data) => {
   return {validData, invalidUsername}
 };
 
-app.listen(3001, () => console.log("server"))
 app.get('/', (req,res) => {
   res.status(200).send("healthy")
 })
@@ -53,5 +52,5 @@ app.post('/validate', async(req, res) => {
  }
 });
 
-export {app}
+export default app
 
