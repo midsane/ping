@@ -6,51 +6,38 @@ const app = express();
 app.use(cors({
   origin: '*'
 }));
-app.use(express.json());
-
-const invalidUsername = [];
-const validData = [];
-const validateData = async (data) => {
-  const allUsername = data.map(entry => entry['Codeforce  Handle ']);
-
-  for (let index = 0; index < allUsername.length; index++) {
-    const un = allUsername[index];
-    try {
-      const response = await fetch(
-        `https://codeforces.com/api/user.info?handles=${un}`
-      );
-      const resData = await response.json();
-      console.log(`Checked: ${un} - Status: ${resData.status}`);
-      if (resData.status === "FAILED") {
-        invalidUsername.push(un);
-      } else {
-        validData.push(data[index]);
-      }
-    } catch (error) {
-      console.error(`Error checking username: ${un}`, error);
-      invalidUsername.push(un);
-    }
-
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-  }
-
-  return {validData, invalidUsername}
-};
 
 app.get('/', (req,res) => {
   res.status(200).send("healthy")
 })
 
-app.post('/validate', async(req, res) => {
- try {
-   const data = req.body.data;
-   const {validData, invalidUsername} = await validateData(data)
-  res.status(200).json({ validData, invalidUsername });
- } catch (error) {
-    console.error(error)
-    res.status(500).json({msg: "some error occured"})
- }
-});
+const pingWebsite = (url) => {
+  // Use fetch without awaiting the response to avoid waiting
+  fetch(url)
+    .then(() => {
+      // Successfully sent the ping (we don't care about the response)
+      console.log(`Pinged ${url}`);
+    })
+    .catch((error) => {
+      // Catch any network errors (e.g., website down)
+      console.log(`Error pinging ${url}:`, error);
+    });
+};
+
+// Ping every minute (60000 milliseconds)
+const pingInterval = 60000;
+const websiteUrl1 = "https://anime-blog-wwzt.onrender.com";
+const websiteUrl2 = "https://taskify-backend-j23x.onrender.com";
+
+// Start the interval to ping every minute
+setInterval(() => {
+  pingWebsite(websiteUrl1);
+}, pingInterval);
+
+setInterval(() => {
+  pingWebsite(websiteUrl2);
+}, pingInterval);
+
 
 export default app
 
