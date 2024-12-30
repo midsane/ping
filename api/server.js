@@ -26,7 +26,7 @@ const pingWebsite = (url) => {
 
 // Ping every minute (60000 milliseconds)
 const pingInterval = 60000;
-const websiteUrl1 = "https://anime-blog-wwzt.onrender.com";
+const websiteUrl1 = "https://anime-blog-wwzt.onrender.com/ping";
 const websiteUrl2 = "https://taskify-backend-j23x.onrender.com";
 
 // Start the interval to ping every minute
