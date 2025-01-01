@@ -12,20 +12,17 @@ app.get('/', (req,res) => {
 })
 
 const pingWebsite = (url) => {
-  // Use fetch without awaiting the response to avoid waiting
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  const exactTime = `${hours}:${minutes}:${seconds}`;
   fetch(url)
-    .then(() => {
-      // Successfully sent the ping (we don't care about the response)
-      console.log(`Pinged ${url}`);
-    })
-    .catch((error) => {
-      // Catch any network errors (e.g., website down)
-      console.log(`Error pinging ${url}:`, error);
-    });
+  console.log(`pinged ${url} at ${exactTime}`);
 };
 
-// Ping every minute (60000 milliseconds)
-const pingInterval = 60000;
+
+const pingInterval = 3000;
 const websiteUrl1 = "https://anime-blog-wwzt.onrender.com/ping";
 const websiteUrl2 = "https://taskify-backend-j23x.onrender.com";
 
